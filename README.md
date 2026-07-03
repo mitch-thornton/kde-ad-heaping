@@ -26,14 +26,14 @@ against that cited background:
 ## Contents
 - `scripts/ad_kde_v31.py` - method module (corrected direct Botev fixed-point ISJ; `ad_kde_v30.py`
   is a compatibility shim kept for imports)
-- `scripts/exp_heaping_coarse_v1.py` - the coarse-heaping battery (Table: coarse), gate of record
+- `scripts/exp_heaping_coarse_v1.py` - the coarse-heaping battery (Table: coarse)
 - `scripts/exp_heaping_mixed_v1.py` - the mixed-grain subgroup-lattice battery (Table: mixed)
 - `scripts/exp_nhanes_heaping_v16.py` - the mixed-grain NHANES study (local run, same --data-dir as v15)
 - `scripts/exp_nhanes_heaping_v15.py` - the NHANES study (Table: real; Fig. panels), needs the
   public NHANES 2017-2018 files DEMO_J.xpt, BMX_J.xpt, SMQ_J.xpt in --data-dir
 - `scripts/exp_datagen_v30.py`, `scripts/adkde_plugins.py` - superposition machinery and plugin hooks
-- `results/exp_heaping_coarse_v1.json` - battery results of record (seed 20260627)
-- `DATA.md` - data provenance and reproduction commands; `HISTORY.md` - revision record
+- `results/exp_heaping_coarse_v1.json` - recorded battery results (seed 20260627)
+- `DATA.md` - data provenance and reproduction commands
 
 All synthetic results reproduce with numpy/scipy/matplotlib only; the NHANES study additionally
 needs pandas. NHANES files are public-domain U.S. government data and are not redistributed here.
