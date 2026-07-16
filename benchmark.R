@@ -2,6 +2,7 @@
 ## benchmark.R -- head-to-head of the combined AD heaping-KDE against three mainstream
 ## external methods (deconvolution KDE; real Kernelheaping SEM; Heitjan-Rubin MI replica)
 ## on the four Gaussian-mixture targets, ISE against the closed-form density. Seed 20260627.
+## Saves per-seed ISE values (mean, sd, perseed) for the uncertainty reporting in the paper.
 ## locate the package R/ directory relative to this script (or PKG_DIR env)
 args <- commandArgs(trailingOnly = FALSE)
 fa <- sub("^--file=", "", args[grep("^--file=", args)])
@@ -43,11 +44,15 @@ for (nm in names(TARGETS)) {
       if (has_km) { fs <- sem_kde(y, D, grid); if (!is.null(fs)) e$sem <- c(e$sem, ise(fs, ft, dx)) }
     }
     mn <- lapply(e, function(v) if (length(v)) mean(v) else NA)
-    rows[[paste(nm, D)]] <- c(target = nm, D = D, lapply(mn, function(v) round(v * 1e3, 3)))
-    cat(sprintf("%-9s %5.2f | %7.2f %7.2f %7s %7.2f | %7.2f %7.2f | %8.2f\n",
+    sdv <- lapply(e, function(v) if (length(v) > 1) sd(v) else NA)
+    rows[[paste(nm, D)]] <- list(target = nm, D = D,
+                                 mean = lapply(mn, function(v) round(v * 1e3, 3)),
+                                 sd = lapply(sdv, function(v) round(v * 1e3, 3)),
+                                 perseed = e)
+    cat(sprintf("%-9s %5.2f | %7.2f %7.2f %7s %7.2f | %7.2f %7.2f | %8.2f (%.2f)\n",
         nm, D, mn$naive*1e3, mn$deconv*1e3,
         if (is.na(mn$sem)) "   -  " else sprintf("%.2f", mn$sem*1e3),
-        mn$heitjan*1e3, mn$deheap*1e3, mn$super*1e3, mn$comb*1e3))
+        mn$heitjan*1e3, mn$deheap*1e3, mn$super*1e3, mn$comb*1e3, sdv$comb*1e3))
   }
 }
 saveRDS(rows, file.path(here, "benchmark_results.rds"))

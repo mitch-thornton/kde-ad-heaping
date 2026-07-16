@@ -19,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Mitchell A. Thornton \email{mitch@smu.edu}
+\strong{Maintainer}: Mitchell A. Thornton \email{mitchat@sbcglobal.net}
 
 }
 \keyword{internal}

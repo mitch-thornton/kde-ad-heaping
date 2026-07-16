@@ -2,7 +2,7 @@ Package: adheaping
 Type: Package
 Title: Characteristic-Function De-Heaping Density Estimation
 Version: 1.0.0
-Authors@R: person("Mitchell A.", "Thornton", email = "mitch@smu.edu",
+Authors@R: person("Mitchell A.", "Thornton", email = "mitchat@sbcglobal.net",
     role = c("aut", "cre"))
 Description: Tuning-free kernel density estimation for heaped and rounded data
     using a characteristic-function theory of heaping. Rounding to a grid is
