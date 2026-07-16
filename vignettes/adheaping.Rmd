@@ -1,0 +1,68 @@
+---
+title: "De-heaping density estimation with adheaping"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{De-heaping density estimation with adheaping}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 6, fig.height = 3.5)
+library(adheaping)
+```
+
+## Heaping and the identifiability limit
+
+Heaped and rounded data concentrate on a coarse grid of round numbers and defeat kernel
+density estimation, which renders the rounding marks as spurious modes. Rounding to a grid of
+width `D` is exactly convolution of the density with a width-`D` box followed by lattice
+sampling, so in the characteristic-function domain the density is recovered by dividing out the
+known box (a continuous generalization of Sheppard's correction) inside the grid-Nyquist band
+`|w| < pi/D`. Beyond that band the density is not identifiable from the heaped data alone.
+
+## A worked example
+
+We draw a bimodal sample, round it to a grid of `0.5`, and compare the naive kernel estimate
+with the tuning-free combined de-heaping estimator.
+
+```{r}
+set.seed(20260627)
+n <- 4000
+x <- ifelse(runif(n) < 0.5, rnorm(n, -1.2, 0.5), rnorm(n, 1.2, 0.5))
+D <- 0.5
+y <- D * round(x / D)
+grid <- seq(-6, 6, length.out = 2048)
+
+f_true  <- 0.5 * dnorm(grid, -1.2, 0.5) + 0.5 * dnorm(grid, 1.2, 0.5)
+f_naive <- naive_kde(y, grid)
+f_adk   <- adkde(y, D, grid)
+attr(f_adk, "pick")   # which component the band-capacity gate selected
+```
+
+```{r, echo = FALSE}
+plot(grid, f_true, type = "l", lwd = 2, xlab = "x", ylab = "density", xlim = c(-3, 3))
+lines(grid, f_naive, col = "grey55", lty = 3, lwd = 1.6)
+lines(grid, as.numeric(f_adk), col = "#b2182b", lwd = 1.8)
+legend("topright", c("truth", "naive KDE", "adkde (combined)"),
+       col = c("black", "grey55", "#b2182b"), lty = c(1, 3, 1), lwd = 1.8, bty = "n")
+```
+
+The naive estimate carries the rounding comb; the combined estimator recovers the smooth
+bimodal density.
+
+## Reading the grid and the heaped fraction
+
+The grid and the fraction of a sample that is heaped are read directly from the rounding comb,
+and the grid is detected blind as a group-matched atom in the spectral basis.
+
+```{r}
+heap_grid(y, grid, near = D)                 # locate the grid from the comb tooth
+heap_detect(y = D * round(x / D), span = c(-12.8, 12.8))$D_hat  # blind spectral detection
+```
+
+## Baselines
+
+Faithful base-R replicas of the measurement-error deconvolution and Heitjan-Rubin
+multiple-imputation methods are provided (`deconv_kde`, `heitjan_mi`), and the real
+`Kernelheaping` stochastic EM is wrapped by `sem_kde` when that package is installed.

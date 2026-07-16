@@ -1,0 +1,14 @@
+^benchmark\.R$
+^nhanes_R\.R$
+^berlin_R\.R$
+^paper$
+^python$
+^data$
+^cran-comments\.md$
+^\.github$
+^\.git$
+^README\.md$
+^.*\.rds$
+^.*\.tar\.gz$
+^.*\.Rproj$
+^\.Rproj\.user$

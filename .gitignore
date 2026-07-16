@@ -1,0 +1,21 @@
+# R build artifacts
+*.tar.gz
+*.Rcheck/
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*~
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# figures / scratch build output (regenerated, not source)
+*.log
