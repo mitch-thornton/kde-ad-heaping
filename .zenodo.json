@@ -1,0 +1,15 @@
+{
+  "title": "adheaping: Characteristic-Function De-Heaping Density Estimation",
+  "upload_type": "software",
+  "description": "An R package for tuning-free kernel density estimation of heaped and rounded data by characteristic-function de-heaping inside the grid-Nyquist band. Companion software to Thornton (2026), arXiv:2606.15450.",
+  "license": "MIT",
+  "version": "1.0.0",
+  "creators": [
+    { "name": "Thornton, Mitchell A.",
+      "affiliation": "Southern Methodist University; Clearpoint Research, LLC" }
+  ],
+  "related_identifiers": [
+    { "identifier": "arXiv:2606.15450", "relation": "isSupplementTo", "scheme": "arxiv" }
+  ],
+  "keywords": ["kernel density estimation","heaped data","rounded data","deconvolution","characteristic function","nonparametric statistics","R"]
+}

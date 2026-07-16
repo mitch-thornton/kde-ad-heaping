@@ -13,3 +13,5 @@
 ^.*\.tar\.gz$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.zenodo\.json$
+^CITATION\.cff$

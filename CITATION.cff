@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the companion article below."
+title: "adheaping: Characteristic-Function De-Heaping Density Estimation"
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/mitch-thornton/kde-ad-heaping"
+authors:
+  - family-names: Thornton
+    given-names: Mitchell A.
+    affiliation: "Southern Methodist University; Clearpoint Research, LLC"
+preferred-citation:
+  type: article
+  title: "Kernel density estimation by spectral decomposition: adaptive tapering, superposition, and a data-driven noise floor"
+  year: 2026
+  notes: "arXiv:2606.15450"
+  authors:
+    - family-names: Thornton
+      given-names: Mitchell A.
