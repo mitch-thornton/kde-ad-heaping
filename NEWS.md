@@ -12,3 +12,4 @@
     Kernelheaping stochastic-EM estimator (`sem_kde`).
   Derived from the spectral-decomposition kernel density estimation of Thornton
   (arXiv:2606.15450).
+* Release archived on Zenodo: doi:10.5281/zenodo.21181205.

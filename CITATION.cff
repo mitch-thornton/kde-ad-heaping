@@ -4,6 +4,11 @@ title: "adheaping: Characteristic-Function De-Heaping Density Estimation"
 version: 1.0.0
 license: MIT
 repository-code: "https://github.com/mitch-thornton/kde-ad-heaping"
+doi: 10.5281/zenodo.21181205
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21181205
+    description: "Zenodo archive of this software release"
 authors:
   - family-names: Thornton
     given-names: Mitchell A.
