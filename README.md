@@ -6,8 +6,6 @@
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21181205.svg)](https://doi.org/10.5281/zenodo.21181205)
 [![CRAN status](https://www.r-pkg.org/badges/version/adheaping)](https://CRAN.R-project.org/package=adheaping)
-<!-- CRAN badge (enable after acceptance):
-[![CRAN status](https://www.r-pkg.org/badges/version/adheaping)](https://CRAN.R-project.org/package=adheaping) -->
 <!-- badges: end -->
 
 Tuning-free kernel density estimation for **heaped and rounded data**. The methods extend the
