@@ -15,3 +15,6 @@
 ^\.Rproj\.user$
 ^\.zenodo\.json$
 ^CITATION\.cff$
+^DATA\.md$
+^results$
+^scripts$

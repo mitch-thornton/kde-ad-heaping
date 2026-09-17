@@ -20,14 +20,17 @@ to be weaker than the 1.0.0 documentation implied.
 
 ## Test environments
 
-* local: macOS Sequoia (aarch64-apple-darwin), R 4.6.1
-* win-builder R-release
-* win-builder R-devel
-* GitHub Actions (.github/workflows/R-CMD-check.yaml): ubuntu (devel/release/oldrel), macOS, windows
+* local: macOS Sequoia 15.3.2 (aarch64-apple-darwin24.6.0), R 4.6.1, `R CMD check --as-cran`
+* GitHub Actions, `.github/workflows/R-CMD-check.yaml`: macOS release, Windows release,
+  Ubuntu R-devel, Ubuntu release, Ubuntu oldrel-1
 
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
+
+The local run reports one further note, that HTML validation was skipped because the
+installed HTML Tidy is older than R requires. That is a property of the local toolchain
+rather than of the package.
 
 ## Reverse dependencies
 
