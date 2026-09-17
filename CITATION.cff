@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the companion article below."
 title: "adheaping: Characteristic-Function De-Heaping Density Estimation"
-version: 1.0.0
+version: 1.1.0
 license: MIT
 repository-code: "https://github.com/mitch-thornton/kde-ad-heaping"
 doi: 10.5281/zenodo.21181205

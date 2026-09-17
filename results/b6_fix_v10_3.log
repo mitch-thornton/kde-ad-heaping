@@ -1,0 +1,49 @@
+b6_fix_v10_3   n = 1019 real reports, 200 simulations per base
+
+real data shares      5/10/20 : 0.570 0.425 0.216
+paper's stated shares 5/10/20 : 0.570 0.430 0.220
+
+== base: dejitter ==
+  simulated shares 5/10/20 : 0.520 0.352 0.196   against real 0.570 0.430 0.220   does NOT match, do not use
+  quantity       true  recovered    ratio
+  grain 1       0.410      0.556    1.355
+  grain 5       0.180      0.219    1.215
+  grain 10      0.120      0.104    0.866
+  grain 20      0.160      0.122    0.762
+  residual      0.130      0.556    4.273
+  ratios across grains: 1.35 1.22 0.87 0.76
+  uniform attenuation would put every ratio below 1 and close together. They are not all below 1.
+
+== base: nonround ==
+  simulated shares 5/10/20 : 0.459 0.308 0.168   against real 0.570 0.430 0.220   does NOT match, do not use
+  quantity       true  recovered    ratio
+  grain 1       0.410      0.492    1.199
+  grain 5       0.180      0.154    0.856
+  grain 10      0.120      0.125    1.040
+  grain 20      0.160      0.229    1.434
+  residual      0.130      0.492    3.782
+  ratios across grains: 1.20 0.86 1.04 1.43
+  uniform attenuation would put every ratio below 1 and close together. They are not all below 1.
+
+== base: gamma ==
+  simulated shares 5/10/20 : 0.556 0.382 0.210   against real 0.570 0.430 0.220   MATCHES, usable
+  quantity       true  recovered    ratio
+  grain 1       0.410      0.522    1.273
+  grain 5       0.180      0.238    1.323
+  grain 10      0.120      0.120    1.003
+  grain 20      0.160      0.119    0.746
+  residual      0.130      0.522    4.016
+  ratios across grains: 1.27 1.32 1.00 0.75
+  uniform attenuation would put every ratio below 1 and close together. They are not all below 1.
+
+INTERPRETATION
+Use only the bases whose simulated round-number shares match the real ones. On those,
+if the recovery ratios are all below one and close together, the attenuation account
+in the paper is supported. If they straddle one, it is not, and the sentence should be
+withdrawn rather than defended. Note also that the shipped R reader defines its
+residual share as one minus the sum of the non-unit weights, which with weights that
+sum to one makes it identically the grain-one weight, so the residual column carries
+no information beyond the first row.
+
+-> /Users/mitch/src/KDE-AD-HEAPING/kde-ad-heaping/results/b6_fix_v10_3.rds
+elapsed 0.3 s

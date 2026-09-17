@@ -80,7 +80,7 @@ def est_combined(y, xg, dx, w, n, D, rng=None):
 
 def run():
     t0 = time.time()
-    n = 4000; nseed = 12; Ds = [0.25, 0.5, 1.0, 1.5]
+    n = 4000; nseed = 50; Ds = [0.25, 0.5, 1.0, 1.5]
     xg, dx, w = H.make_grid(-10, 10, 2048)
     dens = ["gaussian", "bimodal", "kurtotic", "skewed"]
     res = {"seed": SEED, "meta": "heaping_spectral_v3_combined", "RHO_LO": RHO_LO, "RHO_HI": RHO_HI}

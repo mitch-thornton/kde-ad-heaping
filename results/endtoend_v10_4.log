@@ -1,0 +1,74 @@
+endtoend_v10_4  n=4000 M=2048 dx=0.009766 partA_seeds=20 partB_seeds=20 part=both
+usable grid estimate: 0.0195 < Dhat <= 3.9980
+
+==============================================================================
+ A  end-to-end: estimate D from the data, then reconstruct with the estimate
+==============================================================================
+  target        D |     naive    oracle verifying     blind  detector | blind Dhat
+  Gaussian   0.25 |     0.330     0.692     0.692     0.671     0.472 |  0.263 (20/20 ok)
+  Gaussian   0.50 |     1.410     0.262     0.262     0.278     0.230 |  0.556 (20/20 ok)
+  Gaussian   1.00 |     100.0     0.227     0.227     0.453     158.9 |  1.250 (20/20 ok)
+  Gaussian   1.50 |     244.6     1.382     1.385       --       -- | 10.000 (0/20 ok)
+  Bimodal    0.25 |     3.837     0.790     0.790    98.513       -- |  3.333 (20/20 ok)
+  Bimodal    0.50 |     5.674     0.705     0.705    98.553       -- |  3.333 (20/20 ok)
+  Bimodal    1.00 |    48.705     8.042     8.042    98.638       -- |  3.333 (20/20 ok)
+  Bimodal    1.50 |     125.1    68.522    72.016       --       -- |  4.000 (0/20 ok)
+  Kurtotic   0.25 |    71.448    32.332    32.332     506.1    32.921 |  0.071 (20/20 ok)
+  Kurtotic   0.50 |    36.307    42.149    42.149       --    39.113 | 10.000 (0/20 ok)
+  Kurtotic   1.00 |    68.447     145.5     145.5       --     201.0 | 10.000 (0/20 ok)
+  Kurtotic   1.50 |     126.9     191.7     194.0       --       -- | 10.000 (0/20 ok)
+  Skewed     0.25 |     4.660     1.199     1.199     1.263     1.400 |  0.276 (20/20 ok)
+  Skewed     0.50 |    20.025     6.089     6.089     9.861    12.999 |  0.616 (20/20 ok)
+  Skewed     1.00 |     300.4    45.834    45.834       --       -- | 10.000 (0/20 ok)
+  Skewed     1.50 |     283.4    50.050    33.982       --       -- | 10.000 (0/20 ok)
+
+  usable grid estimates, of 320 replicate-cells : verifying 320, blind 180, detector 42
+  cells where the verifying pipeline matches the oracle to 3 decimals : 13 of 16
+  cells where the blind pipeline is within 10% of the oracle          : 3 of 16
+  cells where the blind pipeline beats the naive kernel               : 4 of 16
+  cells where the oracle pipeline beats the naive kernel              : 12 of 16
+
+  READ THIS AS: the difference between the oracle and verifying columns is the cost
+  of reading a grid you already know. The difference between oracle and blind is the
+  cost of not knowing it, which is what Reviewer 1 item 3 asks for. If the blind
+  column is worse than naive in most cells, the end-to-end pipeline is not usable
+  as an automatic procedure and the paper should say so with these numbers.
+There were 50 or more warnings (use warnings() to see the first 50)
+
+==============================================================================
+ B  heaped-fraction reader against known truth
+==============================================================================
+  n = 4000, 20 replicates per cell, p in {0, 0.2, 0.4, 0.6, 0.8, 1}
+  the reader is given the true D, so this tests recovery of p alone
+
+  target        D |    0.0    0.2    0.4    0.6    0.8    1.0|  slope intcpt     R2
+  Gaussian   0.50 |  0.012  0.191  0.391  0.585  0.781  0.977|  0.969  0.005  1.000
+  Gaussian   1.00 |  0.016  0.166  0.332  0.496  0.671  0.835|  0.825  0.007  1.000
+  Gaussian   2.00 |  0.018  0.134  0.243  0.350  0.470  0.577|  0.559  0.020  1.000
+  Bimodal    0.50 |  0.017  0.188  0.368  0.557  0.746  0.930|  0.919  0.009  1.000
+  Bimodal    1.00 |  0.019  0.169  0.333  0.502  0.675  0.839|  0.827  0.010  1.000
+  Bimodal    2.00 |  0.358  0.076  0.219  0.446  0.681  0.913|  0.688  0.104  0.706  NOT MONOTONE
+  Kurtotic   0.50 |  0.180  0.303  0.450  0.591  0.731  0.873|  0.698  0.172  1.000
+  Kurtotic   1.00 |  0.284  0.391  0.476  0.536  0.596  0.640|  0.350  0.312  0.976
+  Kurtotic   2.00 |  0.328  0.424  0.462  0.456  0.420  0.326| -0.004  0.404  0.001  NOT MONOTONE
+  Skewed     0.50 |  0.023  0.169  0.349  0.526  0.709  0.884|  0.872  0.007  0.999
+  Skewed     1.00 |  0.108  0.102  0.239  0.405  0.571  0.728|  0.667  0.025  0.955  NOT MONOTONE
+  Skewed     2.00 |  0.286  0.234  0.275  0.368  0.485  0.602|  0.346  0.202  0.828  NOT MONOTONE
+
+  monotone in every cell              : NO
+  slope across the 12 cells           : -0.004 to 0.969 (spread 151% of the mean)
+  intercept across cells              : 0.005 to 0.404
+  reader output at p = 0              : 0.012 to 0.358
+  linear fit R2                       : 0.001 to 1.000
+  one pooled calibration phat = 0.643 p + 0.106
+  worst error in p after that single calibration, by cell : 0.140 to 0.659
+
+  READ THIS AS: the paper claims p is identifiable up to a STABLE calibratable
+  attenuation. Monotone recovery in every cell supports the first half. The second
+  half needs the slope to be about the same across targets and grids, since a
+  calibration that depends on the unknown density is not available in practice. If
+  the slope spread is large, or a single pooled calibration leaves errors in p of
+  more than a few hundredths, the sentence should be narrowed to monotonicity.
+
+-> /Users/mitch/src/KDE-AD-HEAPING/kde-ad-heaping/results/endtoend_v10_4.rds
+elapsed 150.8 s

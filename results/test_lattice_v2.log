@@ -1,0 +1,62 @@
+
+============================================================================
+ 1  nonnegative least squares, unit tests
+============================================================================
+  exact recovery of a nonnegative solution : max error 5.55e-17   pass
+  nonnegativity under an indefinite target : min weight 0.000e+00   pass
+
+============================================================================
+ 2  known-truth simulation, shipped reader against repaired reader
+============================================================================
+  base: gamma fitted to 1019 dequantized real counts
+
+  simulated shares 5/10/20 : 0.556 0.382 0.210   matches the real data, usable
+
+  quantity       true |   shipped   ratio |  repaired   ratio
+  grain 1       0.410 |     0.522    1.27 |     0.471    1.15
+  grain 5       0.180 |     0.238    1.32 |     0.020    0.11
+  grain 10      0.120 |     0.120    1.00 |     0.170    1.42
+  grain 20      0.160 |     0.119    0.75 |     0.152    0.95
+  residual      0.130 |     0.522    4.02 |     0.188    1.44
+
+  shipped residual identical to its grain-one weight : TRUE
+  repaired residual identical to its grain-one weight: FALSE  (correlation 0.102)
+
+  ATTENUATION TEST on the repaired reader. Ratios: 1.15 0.11 1.42 0.95
+  They straddle one: the attenuation account is NOT supported and the sentence should go.
+
+============================================================================
+ 3  both readers on the real NHANES counts, against the published numbers
+============================================================================
+  n = 1019
+
+  quantity        paper    shipped   repaired
+  grain 1         0.410      0.481      0.442
+  grain 5         0.180      0.218      0.081
+  grain 10        0.120      0.157      0.190
+  grain 20        0.160      0.143      0.169
+  residual        0.130      0.481      0.117
+
+  detection statistic lambda from the repaired reader: 3.80 (fired: TRUE)
+
+  The paper's row is Python output. If the repaired R column now lands near it,
+  the one-language claim in Methods becomes true and the published numbers stand.
+  If it does not, the difference has to be reconciled before v10.3 is cut.
+
+============================================================================
+ 4  bootstrap standard errors from the repaired reader, replacing B5
+============================================================================
+  quantity     estimate    boot SE      95% percentile CI
+  grain 1         0.442      0.015      0.412 to    0.473
+  grain 5         0.081      0.048      0.000 to    0.115
+  grain 10        0.190      0.021      0.147 to    0.228
+  grain 20        0.169      0.006      0.160 to    0.183
+  residual        0.117      0.035      0.109 to    0.198
+
+  ten-grain minus twenty-grain: 0.016, boot SE 0.024, 0.7 SE from zero
+  correlation(residual, grain-one weight) across resamples: 0.249
+  That correlation was exactly 1.000 with the shipped reader. Anything well below
+  one confirms the residual is now a fitted quantity.
+
+-> /Users/mitch/src/KDE-AD-HEAPING/kde-ad-heaping/results/test_lattice_v2.rds
+elapsed 3.5 s

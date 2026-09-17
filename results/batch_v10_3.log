@@ -1,0 +1,181 @@
+
+==============================================================================
+ B6  known-grain simulation through the lattice reader
+==============================================================================
+Simulates integer counts with KNOWN grain weights at the NHANES cigarette sample
+size, pushes them through the same heap_lattice reader, and compares recovered
+weights and forward-predicted round-number shares against the truth. If the
+shortfall reproduces, the attenuation explanation becomes evidence.
+
+base counts: resampled from 1019 real NHANES reports.
+
+quantity               true  recovered      ratio
+grain 1               0.410      0.407      0.992
+grain 5               0.180      0.284      1.579
+grain 10              0.120      0.182      1.517
+grain 20              0.160      0.127      0.794
+residual share        0.130      0.407      3.128
+
+Forward check on the simulated data, where the truth IS known:
+  observed share multiple of  5 : 0.768
+  observed share multiple of 10 : 0.598
+  observed share multiple of 20 : 0.355
+
+The paper reports implied 0.47 / 0.32 / 0.19 against observed 0.57 / 0.43 / 0.22,
+a uniform shortfall of 14 to 26 percent. Compare the ratios above.
+
+==============================================================================
+ caching component estimates for B7 and B9
+==============================================================================
+16 cells x 20 replicates. The band-capacity statistic and the three
+components do not depend on the thresholds, so every threshold pair in B7 is then free.
+
+  Gaussian   D=0.25  rho mean 0.0015  deheap    0.692  super    0.613  iter    0.700
+  Gaussian   D=0.50  rho mean 0.0001  deheap    0.262  super    0.189  iter    0.270
+  Gaussian   D=1.00  rho mean 0.0012  deheap    0.227  super    0.683  iter    0.727
+  Gaussian   D=1.50  rho mean 0.0171  deheap    1.382  super    7.254  iter    1.970
+  Bimodal    D=0.25  rho mean 0.0012  deheap    0.790  super    0.692  iter    0.827
+  Bimodal    D=0.50  rho mean 0.0006  deheap    0.705  super    1.264  iter    1.264
+  Bimodal    D=1.00  rho mean 0.1511  deheap    9.924  super    9.994  iter    7.694
+  Bimodal    D=1.50  rho mean 0.2326  deheap   74.314  super   34.061  iter   68.522
+  Kurtotic   D=0.25  rho mean 0.1006  deheap   32.247  super   32.332  iter   32.299
+  Kurtotic   D=0.50  rho mean 0.1403  deheap  128.472  super   47.181  iter   37.948
+  Kurtotic   D=1.00  rho mean 0.1036  deheap  213.840  super  145.470  iter  149.977
+  Kurtotic   D=1.50  rho mean 0.0945  deheap  251.416  super  191.696  iter  188.774
+  Skewed     D=0.25  rho mean 0.0016  deheap    1.199  super    1.452  iter    1.486
+  Skewed     D=0.50  rho mean 0.0161  deheap    6.089  super    6.090  iter    5.210
+  Skewed     D=1.00  rho mean 0.0107  deheap   45.834  super   52.312  iter   46.026
+  Skewed     D=1.50  rho mean 0.0942  deheap   71.480  super   50.050  iter   33.472
+There were 50 or more warnings (use warnings() to see the first 50)
+
+==============================================================================
+ B7  sensitivity of the two band-capacity thresholds
+==============================================================================
+Mean ISE x1e3 over all 16 cells at the shipped thresholds (0.06, 0.14): 37.2151
+
+Full grid, rows are rho_lo and columns rho_hi. Entries are mean ISE x1e3.
+
+   lo\hi      0.10      0.12      0.14      0.16      0.20      0.25
+    0.02   37.2121   36.9932   37.2774   37.6789   37.7139   35.5602
+    0.04   37.1497   36.9308   37.2151   37.6165   37.6516   35.4978
+    0.06   37.1497   36.9308   37.2151   37.6165   37.6516   35.4978
+    0.08   37.1497   36.9308   37.2151   37.6165   37.6516   35.4978
+    0.10         -   42.8308   43.1151   43.5165   43.5516   41.3978
+    0.12         -         -   46.5548   46.9562   46.9913   44.8375
+
+Across the whole grid the mean ISE ranges 35.4978 to 46.9913, a spread of 32.4% of the
+shipped-threshold value. Best cell is 35.4978 at rho_lo=0.04, rho_hi=0.25.
+
+READ THIS AS: a small spread means the results are insensitive to the thresholds,
+which is what Reviewer 2 says would be a strong point in the method's favour.
+It also settles the title question and the provenance concern in major point 5.
+
+==============================================================================
+ B9  ablation of ISE against the cutoff fraction of pi/D
+==============================================================================
+cell                   0.5       0.6       0.7       0.8       0.9       1.0
+Gaussian 0.25        0.190      0.251      0.336      0.438      0.604      0.692
+Gaussian 0.5         0.213      0.228      0.233      0.252      0.261      0.262
+Gaussian 1          13.637      4.229      1.148      0.376      0.227      0.227
+Gaussian 1.5        35.296     35.296     13.664      4.261      4.261      1.382
+Bimodal 0.25         0.464      0.489      0.532      0.577      0.730      0.790
+Bimodal 0.5          8.965      1.256      1.138      0.780      0.686      0.705
+Bimodal 1           85.752     80.937     65.111     43.080     22.851      9.924
+Bimodal 1.5         86.953     86.953     88.862     87.538     87.538     74.314
+Kurtotic 0.25      123.615     95.431     71.980     53.244     39.671     32.247
+Kurtotic 0.5       212.954    193.023    174.201    156.753    141.307    128.472
+Kurtotic 1         300.940    272.027    251.041    235.534    223.564    213.840
+Kurtotic 1.5       340.830    340.830    300.419    271.573    271.573    251.416
+Skewed 0.25          4.946      2.522      1.573      1.229      1.182      1.199
+Skewed 0.5          37.249     24.497     16.206     10.889      7.699      6.089
+Skewed 1           113.638     88.462     71.538     59.487     50.819     45.834
+Skewed 1.5         148.932    148.932    111.501     86.396     86.396     71.480
+
+mean over cells     94.661     85.960     73.093     63.275     58.710     52.430
+
+Best cutoff fraction on average: 1.0 (mean ISE 52.430) against the shipped 1.0 (52.430).
+
+==============================================================================
+ B8  deconvolution baseline with a data-driven bandwidth
+==============================================================================
+The shipped deconv baseline uses a fixed Silverman Gaussian cutoff. Reviewer 2
+point 10 says that understates it. Two alternatives are run here. The first is
+least-squares cross-validation, which is data driven and reportable. The second is
+an ORACLE bandwidth chosen by minimising the true ISE, which no practitioner could
+use and which therefore bounds how much the baseline could possibly improve.
+
+target         D      fixed       LSCV     oracle    h fixed   h oracle
+Gaussian    0.25      0.343      0.493      0.315     0.2020     0.2209
+Gaussian    0.50      0.348      0.343      0.318     0.2031     0.2091
+Gaussian    1.00      0.279      0.411      0.186     0.2104     0.1153
+Gaussian    1.50      1.504      2.381      1.381     0.2197     0.0746
+Bimodal     0.25      3.418      0.891      0.848     0.2626     0.1229
+Bimodal     0.50      3.781      1.122      0.664     0.2640     0.0476
+Bimodal     1.00     12.599     11.608      9.900     0.2681     0.0200
+Bimodal     1.50     72.050     74.354     69.612     0.2819     0.5767
+Kurtotic    0.25     65.885     28.872     28.550     0.1661     0.0663
+Kurtotic    0.50    123.571    123.715    123.395     0.1662     0.1536
+Kurtotic    1.00    213.666    213.762    213.652     0.1723     0.1691
+Kurtotic    1.50    251.538    252.303    251.416     0.1791     0.0297
+Skewed      0.25      3.747      1.173      1.078     0.1722     0.0739
+Skewed      0.50      7.786      6.636      6.045     0.1740     0.0503
+Skewed      1.00     47.910     49.106     45.553     0.1883     0.0200
+Skewed      1.50     71.373     71.450     71.358     0.1806     0.1999
+
+READ THIS AS: if the oracle column is still worse than the combined estimator in a
+cell, then no bandwidth choice rescues the baseline there and the concern is closed
+for that cell regardless of which selector is used.
+
+==============================================================================
+ B5  bootstrap standard errors for the cigarette grain weights
+==============================================================================
+using column SMD650, n = 1019 respondents with a positive daily count
+
+quantity         estimate    boot SE      95% percentile CI
+grain 1             0.481      0.009      0.465 to    0.499
+grain 5             0.218      0.010      0.199 to    0.237
+grain 10            0.157      0.010      0.137 to    0.175
+grain 20            0.143      0.009      0.126 to    0.162
+residual            0.481      0.009      0.465 to    0.499
+
+ten-grain minus twenty-grain: 0.014, boot SE 0.015, 0.9 SE from zero
+That last line answers whether the ten and twenty grains are distinguishable.
+
+==============================================================================
+ B11  NHANES sensitivity to the reference bandwidth
+==============================================================================
+n = 5185, Silverman reference bandwidth h0 = 9.6813 lb
+
+  D (lb)     mult     naive    deconv     imput  combined
+       5     0.50    0.0057     0.0055     0.0057     0.0438
+      10     0.50    0.0079     0.0071     0.0074     0.0056
+      20     0.50    0.0111     0.0076     0.0083     0.0057
+      30     0.50    0.2255     0.0130     0.0139     0.0094
+      40     0.50    1.1634     0.0158     0.0324     0.0132
+       5     0.75    0.0013     0.0012     0.0013     0.0496
+      10     0.75    0.0025     0.0020     0.0023     0.0024
+      20     0.75    0.0057     0.0032     0.0032     0.0041
+      30     0.75    0.2197     0.0067     0.0069     0.0053
+      40     0.75    1.1627     0.0085     0.0231     0.0079
+       5     1.00    0.0001     0.0001     0.0001     0.0536
+      10     1.00    0.0003     0.0003     0.0004     0.0033
+      20     1.00    0.0035     0.0024     0.0015     0.0070
+      30     1.00    0.2160     0.0036     0.0028     0.0053
+      40     1.00    1.1635     0.0042     0.0160     0.0062
+       5     1.50    0.0066     0.0068     0.0066     0.0690
+      10     1.50    0.0050     0.0059     0.0056     0.0165
+      20     1.50    0.0078     0.0104     0.0074     0.0248
+      30     1.50    0.2142     0.0071     0.0029     0.0170
+      40     1.50    1.1654     0.0046     0.0079     0.0136
+       5     2.00    0.0305     0.0310     0.0304     0.1026
+      10     2.00    0.0272     0.0292     0.0282     0.0494
+      20     2.00    0.0289     0.0358     0.0305     0.0619
+      30     2.00    0.2276     0.0290     0.0199     0.0489
+      40     2.00    1.1749     0.0226     0.0145     0.0401
+
+READ THIS AS: if the ordering of the methods is stable across the multiplier,
+then the Table 2 conclusions do not depend on the reference smoothing choice.
+
+-> /Users/mitch/src/KDE-AD-HEAPING/kde-ad-heaping/results/batch_v10_3.rds
+blocks run: B6, B7, B9, B8, B5, B11
+elapsed 302.4 s

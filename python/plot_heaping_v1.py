@@ -41,12 +41,12 @@ def fig_identifiability():
 
 def fig_ise_grid():
     gm = H.DENSITIES["bimodal"]; xg, dx, w = H.make_grid(-10, 10, 2048); ftrue = gm.pdf(xg)
-    n = 4000; Ds = [0.1, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5]; nseed = 8
+    n = 4000; Ds = [0.1, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5]; nseed = 50
     curves = {k: [] for k in ["naive","ad_deheap","sem","superpose"]}
     for D in Ds:
         e = {k: [] for k in curves}
         for s in range(nseed):
-            sub = np.random.default_rng(SEED + 100*s + int(D*100))
+            sub = np.random.default_rng(SEED + 1000*s + int(D*100))
             y = H.round_to(gm.sample(n, sub), D)
             e["naive"].append(H.ise(H.est_naive(y,xg,dx,w,n), ftrue, dx))
             e["ad_deheap"].append(H.ise(H.est_ad_deheap(y,xg,dx,w,n,D), ftrue, dx))

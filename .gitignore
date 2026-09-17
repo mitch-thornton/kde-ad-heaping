@@ -19,3 +19,7 @@ __pycache__/
 
 # figures / scratch build output (regenerated, not source)
 *.log
+
+# but the run logs in results/ are part of the record the paper is emitted from,
+# so they are kept rather than treated as build output
+!results/*.log

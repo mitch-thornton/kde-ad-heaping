@@ -275,7 +275,7 @@ def run():
     # ---------- V2: estimator benchmark, ISE vs coarsening grid ----------
     n = 4000
     Ds = [0.0, 0.25, 0.5, 1.0, 1.5]     # 0.0 = no heaping (control)
-    nseed = 12
+    nseed = 50
     xg, dx, w = make_grid(-10, 10, 2048)
     V2 = {}
     for dname, gm in DENSITIES.items():

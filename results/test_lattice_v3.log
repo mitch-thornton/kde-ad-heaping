@@ -1,0 +1,68 @@
+
+==============================================================================
+ 1  known-truth recovery against the base scale (third reader)
+==============================================================================
+  n = 1019, 200 simulations per scale, base gamma with sd = 0.75 mean, grains 1 5 10 20
+  base mean  kappa |    unit      g5     g10     g20 | ratios to truth
+  12          0.45 |   0.548   0.229   0.134   0.090 | 1.01 1.27 1.11 0.56
+  24          0.90 |   0.542   0.196   0.151   0.110 | 1.00 1.09 1.26 0.69
+  48          1.81 |   0.541   0.185   0.131   0.143 | 1.00 1.03 1.09 0.89
+  96          3.62 |   0.540   0.182   0.124   0.154 | 1.00 1.01 1.04 0.96
+  192         7.24 |   0.539   0.180   0.125   0.156 | 1.00 1.00 1.04 0.97
+  truth            |   0.540   0.180   0.120   0.160 |
+  READ THIS AS: the reader is unbiased once the base is smooth at the coarsest grain
+  (kappa above about 3) and biased below, worst on the coarsest grain. The cigarette
+  data sit at the first row.
+
+==============================================================================
+ 2  cigarette-scale known truth, third reader (the test the second reader failed)
+==============================================================================
+  simulated shares 5/10/20 : 0.562 0.393 0.218
+  quantity    true recovered   ratio
+  unit       0.540     0.548    1.01
+  g5         0.180     0.229    1.27
+  g10        0.120     0.134    1.11
+  g20        0.160     0.090    0.56
+  Second reader on the same construction gave ratios 1.15 (grain 1) 0.11 1.42 0.95;
+  the unit share here is grain one plus the residual, 0.54.
+
+==============================================================================
+ 3  third reader on the real NHANES counts
+==============================================================================
+  n = 1019
+  exclusive-center amplitudes A20 0.124  A10 0.292  A5 0.467
+  quantity  estimate  boot SE   previous   repaired
+  unit         0.533    0.019      0.540      0.559
+  g5           0.176    0.024      0.180      0.081
+  g10          0.167    0.024      0.120      0.190
+  g20          0.124    0.008      0.160      0.169
+  kappa for the real data (sd of dequantized counts 8.90 over grain 20): 0.44
+  READ THIS AS: at this kappa part 1 says the reader is biased, so these weights are
+  not a measurement either. The unit share and the heaped fraction 1 - unit are the
+  quantities part 1 shows are recovered at every scale.
+
+==============================================================================
+ 4  model-based refinement (NOT adopted): known truth at the cigarette scale
+==============================================================================
+  20 simulations, 6 iterations each
+  quantity    true recovered   ratio      sd
+  unit       0.540     0.494    0.92   0.020
+  g5         0.180     0.217    1.21   0.032
+  g10        0.120     0.125    1.04   0.026
+  g20        0.160     0.153    0.96   0.014
+  READ THIS AS: with a base estimated from the data by posterior dequantization, most
+  of the mixture is recovered at the cigarette scale, at the price of a rounding model
+  and an imputation loop, which is the lineage the paper contrasts itself with.
+
+  refinement on the real counts, weights by iteration (unit, g5, g10, g20):
+    iter 1  0.652  0.141  0.197  0.161
+    iter 2  0.641  0.099  0.184  0.174
+    iter 3  0.594  0.077  0.193  0.178
+    iter 4  0.586  0.066  0.194  0.183
+    iter 5  0.584  0.064  0.184  0.185
+    iter 6  0.580  0.066  0.182  0.183
+    iter 7  0.571  0.074  0.182  0.181
+    iter 8  0.561  0.075  0.184  0.182
+
+-> /Users/mitch/src/KDE-AD-HEAPING/kde-ad-heaping/results/test_lattice_v3.rds
+elapsed 8.9 s

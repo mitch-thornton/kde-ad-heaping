@@ -13,7 +13,10 @@ heap_grid(y, grid, near = NULL)
 
 \item{near}{optional grid hint; if supplied the tooth is located in a frequency window
 around \code{2*pi/near} (a verification that the comb sits at the expected grid); if NULL
-the first strong tooth beyond the signal lobe is taken (fully blind).}
+the first strong tooth beyond the signal lobe is taken (blind). The two modes are not
+equivalent. Over four targets at three grids the verifying mode returned the imposed grid
+in 12 of 12 cases and the blind mode in 0 of 12, so a blind reading should be treated as a
+candidate rather than as a recovered grid.}
 }
 \value{
 The recovered grid width \code{Dhat} (or NA if no tooth is found).

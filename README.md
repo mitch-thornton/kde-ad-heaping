@@ -35,7 +35,7 @@ grid <- seq(-6, 6, length.out = 2048)
 f  <- adkde(y, D, grid)                         # tuning-free combined de-heaping estimator
 attr(f, "pick")                                 # which component the band-capacity gate chose
 heap_grid(y, grid, near = D)                    # recover the grid from the comb
-heap_detect(y, span = c(-12.8, 12.8))$D_hat     # blind spectral detection
+heap_detect(y, span = c(-12.8, 12.8))$D_hat     # fourth-order comb detector; abstains often
 ```
 
 See `vignette("adheaping")` for a worked example.

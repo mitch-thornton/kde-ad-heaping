@@ -80,7 +80,7 @@ def est_superpose_deheap(y, xg, dx, w, n, D, jitter_rng=None):
 
 def run():
     t0 = time.time()
-    n = 4000; nseed = 12
+    n = 4000; nseed = 50
     Ds = [0.25, 0.5, 1.0, 1.5]
     xg, dx, w = H.make_grid(-10, 10, 2048)
     dens = ["gaussian","bimodal","kurtotic","skewed"]

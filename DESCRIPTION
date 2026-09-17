@@ -1,7 +1,7 @@
 Package: adheaping
 Type: Package
 Title: Characteristic-Function De-Heaping Density Estimation
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: person("Mitchell A.", "Thornton", email = "mitchat@sbcglobal.net",
     role = c("aut", "cre"))
 Description: Tuning-free kernel density estimation for heaped and rounded data
@@ -10,8 +10,8 @@ Description: Tuning-free kernel density estimation for heaped and rounded data
     recovered by deconvolving the known box and tapering against a data-driven
     noise floor. Provides a box-deconvolution de-heaping estimator, a
     superposition variant, and a single combined estimator selected by a
-    band-capacity gate; blind grid, heaped-fraction, and mixed-grain readers;
-    and a spectral higher-order comb detector. Faithful base-R replicas of the
+    band-capacity gate; grid, heaped-fraction, and mixed-grain readers;
+    and a spectral higher-order comb detector. Base-R replicas of the
     Heitjan-Rubin multiple-imputation and measurement-error deconvolution
     methods are included for comparison, and the 'Kernelheaping' stochastic
     expectation-maximization estimator is used when installed.

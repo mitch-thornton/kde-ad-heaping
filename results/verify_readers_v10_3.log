@@ -1,0 +1,63 @@
+verify_readers_v10_3
+  package : /Users/mitch/src/KDE-AD-HEAPING/kde-ad-heaping
+  R       : R version 4.6.1 (2026-06-24)
+  seeds   : 10
+  grid    : M=2048 dx=0.009766 on [-10,10)
+
+== Q1. heap_grid, blind mode against verifying mode ==
+The paper's sentence is: on the bimodal target this recovers grids of 0.5, 1.0 and 2.0
+as 0.500, 1.000 and 2.000 with zero variance across seeds.
+
+target     true D | hinted mean  hinted sd | blind mean   blind sd | blind matches?
+Gaussian     0.50 |     0.5000     0.0000 |     0.5556     0.0000 | no
+Gaussian     1.00 |     1.0000     0.0000 |     1.2500     0.0000 | no
+Gaussian     2.00 |     2.0000     0.0000 |    10.0000     0.0000 | no
+Bimodal      0.50 |     0.5000     0.0000 |     3.3333     0.0000 | no
+Bimodal      1.00 |     1.0000     0.0000 |     3.3333     0.0000 | no
+Bimodal      2.00 |     2.0000     0.0000 |     7.0000     3.1623 | no
+Kurtotic     0.50 |     0.5000     0.0000 |    10.0000     0.0000 | no
+Kurtotic     1.00 |     1.0000     0.0000 |    10.0000     0.0000 | no
+Kurtotic     2.00 |     2.0000     0.0000 |    10.0000     0.0000 | no
+Skewed       0.50 |     0.5000     0.0000 |     0.6174     0.0098 | no
+Skewed       1.00 |     1.0000     0.0000 |    10.0000     0.0000 | no
+Skewed       2.00 |     2.0000     0.0000 |    10.0000     0.0000 | no
+
+  blind mode recovers the imposed grid in 0 of 12 cases
+  verifying mode recovers it in 12 of 12 cases
+
+  READ THIS AS: if the verifying column reproduces the paper's 0.500 / 1.000 / 2.000
+  and the blind column does not, then the reported recoveries came from the branch
+  that is given the expected grid, and the mixed-grain sentence needs correcting.
+
+== Q2. heap_detect with shipped defaults, on the sixteen Table 1 cells ==
+
+target          D    fire rate   mean D_hat   rel. error
+Gaussian     0.25         0.20        0.252        +0.6%
+Gaussian     0.50         0.40        0.503        +0.6%
+Gaussian     1.00         0.50        0.288       -71.2%
+Gaussian     1.50         0.00            -            -
+Bimodal      0.25         0.00            -            -
+Bimodal      0.50         0.00            -            -
+Bimodal      1.00         0.00            -            -
+Bimodal      1.50         0.00            -            -
+Kurtotic     0.25         0.20        0.252        +0.6%
+Kurtotic     0.50         0.40        0.503        +0.6%
+Kurtotic     1.00         0.40        0.467       -53.3%
+Kurtotic     1.50         0.00            -            -
+Skewed       0.25         0.00            -            -
+Skewed       0.50         0.10        0.503        +0.6%
+Skewed       1.00         0.00            -            -
+Skewed       1.50         0.00            -            -
+
+  the detector fires in a majority of replicates in 0 of 16 cells
+
+  READ THIS AS: the paper reports the detector recovering imposed grids of 0.4, 0.8
+  and 1.6. If the defaults fire in few of these sixteen cells, then the reported
+  detections used different settings, and Methods has to state which.
+
+== verdict ==
+  Q1  CONFIRMED: the reported grid recoveries come from the verifying branch, not blind detection. 
+  Q2  CONFIRMED: heap_detect with shipped defaults does not fire on most Table 1 cells. 
+
+-> /Users/mitch/src/KDE-AD-HEAPING/kde-ad-heaping/results/verify_readers_v10_3.rds
+elapsed 0.2 s

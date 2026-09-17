@@ -2,29 +2,55 @@
 % Please edit documentation in R/detector.R
 \name{heap_lattice}
 \alias{heap_lattice}
-\title{Subgroup-lattice reader for mixed rounding grains (Moebius inversion over the divisor lattice).}
+\title{Mixed-grain reader by Moebius inversion at exclusive replica centers.}
 \usage{
-heap_lattice(y, grains = c(1, 5, 10, 20), span = c(0, 720), Mgrid = 8192)
+heap_lattice(y, grains = c(1, 5, 10, 20), nboot = 0, seed = 20260627)
 }
 \arguments{
 \item{y}{integer-valued heaped sample.}
 
-\item{grains}{candidate grains (e.g. \code{c(1, 5, 10, 20)}).}
+\item{grains}{candidate grains; must include 1 (e.g. \code{c(1, 5, 10, 20)}).}
 
-\item{span}{analysis span; base unit assumed 1.}
+\item{nboot}{bootstrap resamples for standard errors; 0 for none.}
 
-\item{Mgrid}{internal grid size.}
+\item{seed}{seed for the bootstrap.}
 }
 \value{
-A list with \code{grains}, their \code{weights}, and the \code{unrounded} share.
+A list with \code{grains}, \code{weights} (the weight on grain 1 is the unit
+share, so one minus it is the heaped fraction), the exclusive-center \code{amplitudes},
+\code{n}, and when \code{nboot > 0} the \code{boot_se} and the resample matrix
+\code{boot_w}.
 }
 \description{
-Given integer-count data with a known base unit, reads the replica-center amplitudes at the
-divisor lattice of the base period and solves a nonnegative system for the grain weights and
-the unrounded share. A compact reader; see the Python reference for the hardened version.
+Reads the share of an integer-valued sample that was rounded to each of several grains.
+A class of reports rounded to grain \code{g} is a lattice variable with spacing \code{g},
+so its characteristic function is exactly one at every multiple of \code{2*pi/g}. At a
+replica center of \code{g} that is not a center of any finer grain, that class contributes
+its full weight while each finer class contributes the Fourier transform of its
+residue-class distribution modulo \code{g}. The Moebius differences of the amplitudes at
+those exclusive centers are therefore the grain weights. The empirical characteristic
+function is evaluated directly on the sample with no binning, and the sampling floor
+\code{1/n} is removed from the squared amplitude.
+}
+\details{
+The finer classes' contributions vanish only when the base density is smooth at the scale
+of the coarsest grain. When it is sharp at that scale they alias into the coarse grain's
+exclusive centers and the reading is biased, most on the coarsest grain. The regime is set
+by \code{kappa}, the standard deviation of the dequantized base over the coarsest grain.
+On a known-truth sweep the reader recovers every weight to within about four percent once
+\code{kappa} exceeds roughly three, and recovers the unit share, and hence the heaped
+fraction, at every \code{kappa} tested. Below that the grain split should be read as
+descriptive rather than as a measurement.
+
+This replaces the reader released in version 1.0.0, which normalized replica amplitudes
+without inverting. That reader returned an unrounded share that was identically its
+grain-one weight, so the two quantities it reported separately were the same number, and
+it was biased on every grain of a known-truth simulation. Results from it are superseded.
 }
 \examples{
 set.seed(1)
-y <- sample(c(5, 10, 15, 20, 7, 13), 500, replace = TRUE)
+base <- round(rnorm(4000, 100, 30))
+g <- sample(c(1, 5, 10, 20), 4000, replace = TRUE, prob = c(.4, .3, .2, .1))
+y <- g * round(base / g)
 heap_lattice(y, grains = c(1, 5, 10, 20))
 }

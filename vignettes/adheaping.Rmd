@@ -54,11 +54,12 @@ bimodal density.
 ## Reading the grid and the heaped fraction
 
 The grid and the fraction of a sample that is heaped are read directly from the rounding comb,
-and the grid is detected blind as a group-matched atom in the spectral basis.
+and the comb is treated as a group-matched atom in the spectral basis by a fourth-order
+detector, which abstains rather than guessing and so fires only in a minority of cases.
 
 ```{r}
 heap_grid(y, grid, near = D)                 # locate the grid from the comb tooth
-heap_detect(y = D * round(x / D), span = c(-12.8, 12.8))$D_hat  # blind spectral detection
+heap_detect(y = D * round(x / D), span = c(-12.8, 12.8))$D_hat  # NA when it abstains
 ```
 
 ## Baselines
