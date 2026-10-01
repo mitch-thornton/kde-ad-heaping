@@ -1,0 +1,31 @@
+sensitivity_n_v13  D=0.50 seeds=50 targets=T1+T2 n=250,500,1000,2000,4000  draw=4000  M=2048 dx=0.009766
+definitions lifted from /Users/mitch/Documents/Authoring/journ/SUBMITTED-Heaping-Sci-Reports/SIXTH-minor-revision/v13.0/heaped_kde_bundle_v13_0/scripts/benchmark_v10_2.R
+
+density         n      naive     deconv   combined  c/naive    naive-c      se   wins    D/h
+Gaussian      250     2.4848     2.5309     2.8845   1.1609    -0.3997  0.2039   25/50   1.41
+Gaussian      500     2.0506     2.0672     2.0763   1.0125    -0.0257  0.1578   34/50   1.61
+Gaussian     1000     1.1424     1.1418     1.1199   0.9803     0.0225  0.1189   33/50   1.86
+Gaussian     2000     0.8781     0.7238     0.5920   0.6741     0.2862  0.0428   41/50   2.13
+Gaussian     4000     1.4465     0.4013     0.2898   0.2004     1.1567  0.0172   50/50   2.46
+
+Bimodal       250    23.1533    20.7930     5.9335   0.2563    17.2198  0.3914   50/50   1.09
+Bimodal       500    17.3147    14.9753     3.6979   0.2136    13.6168  0.2684   50/50   1.25
+Bimodal      1000    12.0772     9.8461     2.1281   0.1762     9.9491  0.2006   50/50   1.44
+Bimodal      2000     8.3503     6.2973     1.2594   0.1508     7.0909  0.1063   50/50   1.65
+Bimodal      4000     5.9118     4.0073     0.8012   0.1355     5.1106  0.0799   50/50   1.89
+
+-> /Users/mitch/Documents/Authoring/journ/SUBMITTED-Heaping-Sci-Reports/SIXTH-minor-revision/v13.0/heaped_kde_bundle_v13_0/results/sensitivity_n_v13.rds
+-> /Users/mitch/Documents/Authoring/journ/SUBMITTED-Heaping-Sci-Reports/SIXTH-minor-revision/v13.0/heaped_kde_bundle_v13_0/results/sensitivity_n_v13.json
+elapsed 0.6 s over 10 cells
+
+== Table 1 anchor, n = 4000 against results/benchmark_v10_2.rds ==
+   T1  pass  seeds run 50, stored 50
+        naive     per-seed max |diff| 0e+00         mean stored 1.4465      run 1.4465      |diff| 0e+00
+        deconv    per-seed max |diff| 0e+00         mean stored 0.4013      run 0.4013      |diff| 3e-06
+        combined  per-seed max |diff| 0e+00         mean stored 0.2898      run 0.2898      |diff| 5e-06
+   T2  pass  seeds run 50, stored 50
+        naive     per-seed max |diff| 0e+00         mean stored 5.9117      run 5.9118      |diff| 1e-06
+        deconv    per-seed max |diff| 0e+00         mean stored 4.0073      run 4.0073      |diff| 3e-06
+        combined  per-seed max |diff| 0e+00         mean stored 0.8012      run 0.8012      |diff| 1e-06
+   tolerance: per-seed 0.0001, mean 0.0005, both on ISE x 1e3
+
